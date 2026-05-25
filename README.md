@@ -1,6 +1,6 @@
 # Smart Wallet (Spring Boot)
 
-REST API SmartWallet для мобильного/веб-клиента: пользователи, карты с правилами кэшбэка, транзакции, подбор карты под категорию, подсказки и чат через внешний GigaChat-прокси. Исходная спецификация API — в репозитории [MCtext043/SmartWallet](https://github.com/MCtext043/SmartWallet).
+REST API **бекенда под мобильное приложение** Smart Wallet: пользователи, карты и правила кэшбэка, транзакции, подбор карты по категории, рекомендации и чат через внешний GigaChat-прокси. Клиент (iOS / Android или кроссплатформа) общается с этим сервисом напрямую по **HTTPS** и **JSON REST**; описание контрактов для разработчиков приложения — **OpenAPI** (`/docs`). Исходная спецификация API — в репозитории [MCtext043/SmartWallet](https://github.com/MCtext043/SmartWallet).
 
 ## Ответ на вопрос «это реально?»
 
@@ -28,43 +28,36 @@ REST API SmartWallet для мобильного/веб-клиента: поль
 
 ## Архитектура
 
-### Контур развёртывания
+### Контур развёртывания (бек для мобильного клиента)
 
-Сводная схема того, как **пользовательские клиенты**, **frontend**, **backend** и **данные / внешние сервисы** стыкуются друг с другом (аналог блок-схемы «от устройства до БД»):
+В этом проекте **нет отдельного BFF или веб-фронта** — мобильное приложение ходит **напрямую** в Spring Boot-сервис. Схема соответствует тому, что реально реализовано в коде и в Docker Compose (`api` + PostgreSQL):
 
 ```mermaid
-flowchart TB
-  subgraph CLIENTS["Пользовательские устройства"]
-    TG["Telegram-клиент"]
-    WB["Веб-браузер"]
+flowchart LR
+  subgraph MOBILE["Мобильное приложение"]
+    APP["Клиент<br/><sub>iOS / Android и т.п.</sub>"]
   end
 
-  subgraph WEB["Веб-сервер"]
-    FE["Frontend"]
+  subgraph SERVER["Этот репозиторий — Backend"]
+    BE["Spring Boot REST API<br/><sub>JWT, JSON, порты см. ниже</sub>"]
   end
 
-  subgraph APP["Сервер приложений"]
-    BE["Backend API<br/><sub>этот репозиторий (Spring Boot)</sub>"]
+  subgraph DATA["Данные"]
+    PG[("PostgreSQL<br/><sub>Flyway, JPA</sub>")]
   end
 
-  subgraph DB_SRV["Сервер базы данных"]
-    PG[("PostgreSQL")]
+  subgraph EXT["Внешний сервис"]
+    GIGA["GigaChat-прокси<br/><sub>HTTP, assistant.gigachat.url</sub>"]
   end
 
-  subgraph EXT["Внешние сервисы"]
-    GIGA["GigaChat API<br/><sub>HTTP через настраиваемый URL</sub>"]
-    SMTP["SMTP / шлюз e-mail"]
-  end
-
-  TG -->|"REST API"| FE
-  WB -->|"HTTP / HTTPS"| FE
-  FE <-->|"REST API"| BE
-  BE <-->|"SQL (JDBC / ORM)"| PG
-  BE <-->|"HTTP API"| GIGA
-  BE -.->|"SMTP (опционально, в коде пока не реализовано)"| SMTP
+  APP <-->|"HTTPS · REST · JSON<br/>Bearer JWT после /auth/login"| BE
+  BE <-->|"SQL"| PG
+  BE -->|"HTTP POST<br/>ассистент / чат"| GIGA
 ```
 
-О **репозитории:** здесь — **слой Backend + схема БД Flyway**. Клиенты Telegram/браузер и отдельный **frontend** взаимодействуют с ним через **REST** так же, как на схеме. Интеграция с **GigaChat** в коде уже есть (`assistant.gigachat.url`). Узел **SMTP / e-mail шлюз** на диаграмме — типичное место для рассылки уведомлений регистрации и т.п.; при необходимости подключается отдельно (в текущем коде отправки почты нет).
+**Дополнительно (не отдельный узел на схеме):** встроенная **Swagger / OpenAPI** (`/docs`) нужна прежде всего разработчикам мобильного приложения как живая документация к тем же эндпоинтам, которые дергает клиент из стора.
+
+**Не в этом API (пока):** отправка почты (SMTP), пуши, отдельный Telegram- или веб-фронт — при появлении их можно добавить на схему как новые клиенты или очередь.
 
 ### Внутренние слои backend (этот проект)
 
