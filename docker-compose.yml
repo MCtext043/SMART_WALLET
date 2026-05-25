@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: smartwallet
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d smartwallet"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - smartwallet-pg-data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/smartwallet
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      # Зовёт тот же путь, что и старый бэкенд (см. http://91.146.28.240:8041/swagger-ui/index.html#/ )
+      ASSISTANT_GIGACHAT_URL: ${ASSISTANT_GIGACHAT_URL:-http://91.146.28.240:8041/api/gigachat/message}
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  smartwallet-pg-data:
