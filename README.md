@@ -35,7 +35,7 @@ REST API **бекенда под мобильное приложение** Smart
 ```mermaid
 flowchart LR
   subgraph MOBILE["Мобильное приложение"]
-    APP["Клиент<br/><sub>Android и т.п.</sub>"]
+    APP["Клиент<br/><sub>Android</sub>"]
   end
 
   subgraph SERVER["Этот репозиторий — Backend"]
