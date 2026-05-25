@@ -150,6 +150,7 @@ public class AssistantChatService {
         } catch (Exception e) {
             text = responseText;
         }
+
         text = text.strip();
         text = text.replace("\\n", "\n");
         text = text.replace("\\\"", "\"");
