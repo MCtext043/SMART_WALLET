@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="end"
+    android:padding="8dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true"
+        android:backgroundTint="@color/md_theme_primary">
+
+        <TextView
+            android:id="@+id/textMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Привет!"
+            android:textSize="16sp"
+            android:textColor="@color/md_theme_onPrimary"
+            android:padding="12dp"
+            android:maxWidth="280dp" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

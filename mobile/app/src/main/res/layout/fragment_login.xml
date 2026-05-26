@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/white"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingStart="@dimen/auth_form_screen_padding_horizontal"
+        android:paddingEnd="@dimen/auth_form_screen_padding_horizontal"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/smartwallet"
+            android:contentDescription="Smart Wallet"
+            android:scaleType="fitCenter" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@color/white"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+                <!-- Как в dialog_add_card.xml: серая карточка + EditText; отступы по бокам — без обрезки тенью у белой рамки -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/smartwallet_button_height"
+                    android:layout_marginStart="@dimen/auth_form_field_horizontal_inset"
+                    android:layout_marginEnd="@dimen/auth_form_field_horizontal_inset"
+                    android:layout_marginTop="@dimen/auth_form_first_field_extra_top"
+                    android:layout_marginBottom="18dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/smartwallet_button_corner"
+                    app:cardElevation="@dimen/home_advice_cards_elevation"
+                    app:cardUseCompatPadding="false"
+                    app:strokeWidth="0dp">
+
+                    <EditText
+                        android:id="@+id/inputPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:minHeight="@dimen/smartwallet_button_height"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical"
+                        android:hint="Телефон"
+                        android:importantForAutofill="yes"
+                        android:inputType="number"
+                        android:maxLength="15"
+                        android:paddingHorizontal="16dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/add_card_hint_gray"
+                        android:textSize="17sp" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/smartwallet_button_height"
+                    android:layout_marginStart="@dimen/auth_form_field_horizontal_inset"
+                    android:layout_marginEnd="@dimen/auth_form_field_horizontal_inset"
+                    android:layout_marginBottom="18dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/smartwallet_button_corner"
+                    app:cardElevation="@dimen/home_advice_cards_elevation"
+                    app:cardUseCompatPadding="false"
+                    app:strokeWidth="0dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:minHeight="@dimen/smartwallet_button_height"
+                            style="@style/Widget.SmartWallet.TextInputLayout.AuthPassword"
+                            app:endIconMode="password_toggle"
+                            app:endIconTint="@color/add_card_edit_gray">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/inputPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"
+                                android:gravity="start|center_vertical"
+                                android:hint="Пароль"
+                                android:includeFontPadding="false"
+                                android:inputType="textPassword"
+                                android:minHeight="0dp"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="0dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/add_card_hint_gray"
+                                android:textSize="17sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/auth_form_field_horizontal_inset"
+                    android:layout_marginEnd="@dimen/auth_form_field_horizontal_inset"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/checkboxRememberMe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:minHeight="48dp"
+                        android:text="@string/auth_remember_me"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textForgotPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="Забыли пароль?"
+                        android:textColor="#388E3C"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonLogin"
+                    style="@style/Widget.SmartWallet.Button.FullWidth"
+                    android:layout_marginStart="@dimen/auth_form_field_horizontal_inset"
+                    android:layout_marginEnd="@dimen/auth_form_field_horizontal_inset"
+                    android:layout_marginTop="24dp"
+                    android:text="Войти"
+                    android:textSize="16sp" />
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Безопасный вход в личный кабинет"
+            android:textColor="#757575"
+            android:textSize="13sp"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.AuthActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <!-- TabLayout в стиле карточки -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginStart="@dimen/auth_form_tab_card_margin_horizontal"
+            android:layout_marginEnd="@dimen/auth_form_tab_card_margin_horizontal"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            app:strokeColor="@color/auth_card_stroke"
+            app:strokeWidth="1dp"
+            app:cardBackgroundColor="@color/white">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/authTabs"
+                style="@style/Widget.SmartWallet.TabLayout.Auth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorFullWidth="true"
+                app:tabTextAppearance="@style/TextAppearance.Material3.BodyLarge"
+                app:tabMode="fixed"
+                app:tabGravity="fill" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/authViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+

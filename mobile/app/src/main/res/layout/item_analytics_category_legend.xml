@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/analytics_category_chip_spacing_h"
+    android:layout_marginBottom="@dimen/analytics_category_chip_spacing_v"
+    android:background="@color/white"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingStart="@dimen/analytics_category_chip_white_inset"
+    android:paddingTop="@dimen/analytics_category_chip_white_inset"
+    android:paddingEnd="@dimen/analytics_category_chip_white_inset"
+    android:paddingBottom="@dimen/analytics_category_chip_white_inset_bottom">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/analyticsCategoryChip"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/analytics_category_chip_height"
+        app:cardCornerRadius="@dimen/analytics_category_chip_corner"
+        app:cardElevation="2dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="false"
+        app:contentPaddingEnd="@dimen/analytics_category_chip_inner_padding_end"
+        app:contentPaddingStart="@dimen/analytics_category_chip_inner_padding_start"
+        app:strokeColor="@android:color/transparent"
+        app:strokeWidth="0dp"
+        tools:cardBackgroundColor="#E8FBC0">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/iconCircleHost"
+                android:layout_width="@dimen/analytics_category_chip_height"
+                android:layout_height="@dimen/analytics_category_chip_height"
+                android:clipChildren="true">
+
+                <ImageView
+                    android:id="@+id/imageCategory"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    tools:src="@drawable/ic_txn_category_food" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/analytics_category_chip_text_min_width"
+                android:paddingStart="@dimen/analytics_category_chip_text_gap_after_icon"
+                android:paddingEnd="@dimen/analytics_category_chip_text_padding_end"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                tools:text="Еда" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>

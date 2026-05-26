@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Тёмная карта в духе Т-Банка + жёлтая полоса снизу -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="135"
+                android:endColor="#0A0A0A"
+                android:startColor="#353535"
+                android:type="linear" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+    <item android:gravity="bottom|fill_horizontal">
+        <shape android:shape="rectangle">
+            <size android:height="6dp" />
+            <solid android:color="#FFDD2D" />
+            <corners
+                android:bottomLeftRadius="16dp"
+                android:bottomRightRadius="16dp" />
+        </shape>
+    </item>
+</layer-list>

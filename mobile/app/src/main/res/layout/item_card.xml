@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="288dp"
+    android:layout_height="182dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:strokeWidth="0dp"
+    app:cardUseCompatPadding="true"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="top">
+
+        <!-- Header with Bank Name -->
+        <TextView
+            android:id="@+id/textBankName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Сбербанк"
+            android:textSize="14sp"
+               android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <!-- Card Number -->
+        <TextView
+            android:id="@+id/textLast4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="•••• 1234"
+            android:textSize="20sp"
+               android:textColor="@color/white"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:layout_marginTop="16dp" />
+
+        <!-- Card Name -->
+        <TextView
+            android:id="@+id/textCardName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Visa Gold"
+            android:textSize="16sp"
+               android:textColor="@color/white"
+            android:layout_marginTop="8dp" />
+
+        <!-- Spacer to push limit to bottom -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Cashback Limit -->
+        <TextView
+            android:id="@+id/textCashbackLimit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Лимит: 50000 ₽"
+            android:textSize="12sp"
+               android:textColor="@color/white"
+            android:alpha="0.8" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

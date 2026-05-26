@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- SmartWallet Brand Colors -->
+    <color name="brand_primary">#4CAF50</color>          <!-- Светло-зелёный - основной цвет бренда -->
+    <color name="brand_secondary">#81C784</color>        <!-- Мягко-зелёный - вторичный акцент -->
+    <color name="brand_background">#FFFFFF</color>       <!-- Фон экранов -->
+    <color name="brand_text_primary">#212121</color>     <!-- Тёмно-серый - основной текст -->
+    <color name="brand_text_secondary">#757575</color>   <!-- Серый - вторичный текст -->
+    <color name="brand_accent">#388E3C</color>           <!-- Тёмно-зелёный - акцентный текст -->
+    <color name="brand_border">#A5D6A7</color>           <!-- Нежно-зелёный - границы карточек -->
+    <color name="brand_card_bg">#FFFFFF</color>          <!-- Белый - фон карточек -->
+
+    <!-- Единый стиль кнопок -->
+    <color name="brand_button_lime">#CCFB55</color>
+    <!-- Загрузочный экран (тот же лайм, зафиксировано явно в ТЗ) -->
+    <color name="splash_screen_background">#CCFB55</color>
+    <color name="brand_button_ripple">#40000000</color>
+
+    <!-- Лёгкая серая обводка: белая карточка формы, вкладки, серые поля (одинаковый тон) -->
+    <color name="auth_card_stroke">#F2F2F2</color>
+
+    <!-- Главная: свечение #696969 @ 15% (макет #69696926 RRGGBBAA → AARRGGBB #26696969); blur в Android — через elevation + outline -->
+    <!-- Чуть сильнее, чем ~15%, чтобы свечение читалось на белом фоне -->
+    <color name="home_card_glow_shadow">#686c5e</color>
+    <!-- Профиль: сильнее свечение, в тон общему home_card_glow_shadow -->
+    <color name="profile_button_glow_ambient">#C5C9C0</color>
+    <color name="profile_button_glow_spot">#989E92</color>
+
+    <!-- Диалог добавления карты -->
+    <color name="add_card_field_fill">#F4F5F7</color>
+    <color name="add_card_edit_gray">#6D7179</color>
+    <color name="add_card_hint_gray">#9EA2AD</color>
+
+    <!-- Bottom navigation — лаймово-светлый блок (legacy; панель в дашборде теперь белая) -->
+    <color name="nav_bar_background">#EEF6D4</color>
+
+    <!-- Bottom nav: неактивные серые, активная вкладка — чёрная (tint + scale в BottomNavSelectionHelper) -->
+    <color name="nav_item_selected">#FF000000</color>
+    <color name="nav_item_unselected">#9CA3A0</color>
+    <color name="nav_item_indicator">#D8EF9A</color>
+    <color name="nav_item_ripple">#334CAF50</color>
+
+    <!-- Текст на карточках банков -->
+    <color name="bank_card_text_on_dark">#FFFFFF</color>
+    <color name="bank_card_text_on_dark_muted">#B3FFFFFF</color>
+    <color name="bank_card_text_on_light">#1A1A1A</color>
+    <color name="bank_card_text_on_light_muted">#99000000</color>
+    
+    <!-- Material 3 Theme Colors (updated with brand colors) -->
+    <color name="md_theme_primary">#4CAF50</color>
+    <color name="md_theme_onPrimary">#FFFFFF</color>
+    <color name="md_theme_secondary">#81C784</color>
+    <color name="md_theme_onSecondary">#212121</color>
+    <color name="md_theme_tertiary">#388E3C</color>
+    <color name="md_theme_onTertiary">#FFFFFF</color>
+    <color name="md_theme_background">#FFFFFF</color>
+    <color name="md_theme_onBackground">#212121</color>
+    <color name="md_theme_surface">#FFFFFF</color>
+    <color name="md_theme_onSurface">#212121</color>
+    <color name="md_theme_surfaceContainerHigh">#FFFFFF</color>
+    <color name="md_theme_surfaceContainerLow">#FFFFFF</color>
+    <color name="md_theme_primaryContainer">#E8F5E8</color>
+    <color name="md_theme_onPrimaryContainer">#2E7D32</color>
+    <color name="md_theme_onSurfaceVariant">#757575</color>
+    <color name="md_theme_error">#BA1A1A</color>
+    <color name="md_outline">#A5D6A7</color>
+    <color name="md_outline_variant">#C8E6C9</color>
+    <color name="md_surface_container">#F8F9F7</color>
+    
+    <!-- Аналитика: фон под процентами (#RRGGBBAA → в Android #AARRGGBB) -->
+    <color name="analytics_percent_label_bg">#E0FFFFFF</color>
+
+    <!-- Category Colors for Analytics -->
+    <color name="category_food">#FF6B6B</color>           <!-- Красный для еды -->
+    <color name="category_transport">#4ECDC4</color>      <!-- Бирюзовый для транспорта -->
+    <color name="category_shopping">#45B7D1</color>       <!-- Синий для покупок -->
+    <color name="category_entertainment">#96CEB4</color>  <!-- Зеленый для развлечений -->
+    <color name="category_health">#FFEAA7</color>         <!-- Желтый для здоровья -->
+    <color name="category_other">#DDA0DD</color>          <!-- Фиолетовый для прочего -->
+
+    <!-- Элемент истории операций -->
+    <color name="transaction_category_tile_bg">#E2FBA4</color>
+    <color name="transaction_cashback_green">#38EE27</color>
+    <color name="transaction_amount_debit">#D32F2F</color>
+    <color name="transaction_cashback_chip_bg">#F6F6F8</color>
+</resources>

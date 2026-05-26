@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- SmartWallet Brand Colors - Dark Theme -->
+    <color name="brand_primary">#66BB6A</color>          <!-- Светло-зелёный - основной цвет бренда -->
+    <color name="brand_secondary">#81C784</color>        <!-- Мягко-зелёный - вторичный акцент -->
+    <color name="brand_background">#FFFFFF</color>       <!-- Фон экранов (как в светлой теме) -->
+    <color name="brand_text_primary">#FFFFFF</color>     <!-- Белый - основной текст -->
+    <color name="brand_text_secondary">#B3B3B3</color>   <!-- Светло-серый - вторичный текст -->
+    <color name="brand_accent">#4CAF50</color>           <!-- Зелёный - акцентный текст -->
+    <color name="brand_border">#333333</color>           <!-- Тёмно-серый - границы карточек -->
+    <color name="brand_card_bg">#FFFFFF</color>          <!-- Фон карточек -->
+
+    <color name="auth_card_stroke">#DCDCDE</color>
+
+    <!-- Bottom navigation — тёмный фон, лаймовые акценты -->
+    <color name="nav_bar_background">#1B1F14</color>
+    <color name="nav_item_selected">#C5E86C</color>
+    <color name="nav_item_unselected">#8A9384</color>
+    <color name="nav_item_indicator">#2D3318</color>
+    <color name="nav_item_ripple">#44C5E86C</color>
+    
+    <!-- Material 3 Theme Colors (Dark Theme) -->
+    <color name="md_theme_primary">#66BB6A</color>
+    <color name="md_theme_onPrimary">#000000</color>
+    <color name="md_theme_secondary">#81C784</color>
+    <color name="md_theme_onSecondary">#000000</color>
+    <color name="md_theme_tertiary">#4CAF50</color>
+    <color name="md_theme_onTertiary">#000000</color>
+    <color name="md_theme_background">#FFFFFF</color>
+    <color name="md_theme_onBackground">#212121</color>
+    <color name="md_theme_surface">#FFFFFF</color>
+    <color name="md_theme_onSurface">#212121</color>
+    <color name="md_theme_surfaceContainerHigh">#2A2A2A</color>
+    <color name="md_theme_surfaceContainerLow">#1A1A1A</color>
+    <color name="md_theme_primaryContainer">#2E7D32</color>
+    <color name="md_theme_onPrimaryContainer">#FFFFFF</color>
+    <color name="md_theme_onSurfaceVariant">#757575</color>
+    <color name="md_theme_error">#CF6679</color>
+    <color name="md_outline">#333333</color>
+    <color name="md_outline_variant">#444444</color>
+    <color name="md_surface_container">#1E1E1E</color>
+    
+    <color name="analytics_percent_label_bg">#E0FFFFFF</color>
+
+    <!-- Category Colors for Analytics (Dark Theme) -->
+    <color name="category_food">#FF8A80</color>           <!-- Светло-красный для еды -->
+    <color name="category_transport">#80CBC4</color>      <!-- Светло-бирюзовый для транспорта -->
+    <color name="category_shopping">#90CAF9</color>       <!-- Светло-синий для покупок -->
+    <color name="category_entertainment">#A5D6A7</color>  <!-- Светло-зеленый для развлечений -->
+    <color name="category_health">#FFF176</color>         <!-- Светло-желтый для здоровья -->
+    <color name="category_other">#E1BEE7</color>          <!-- Светло-фиолетовый для прочего -->
+</resources>

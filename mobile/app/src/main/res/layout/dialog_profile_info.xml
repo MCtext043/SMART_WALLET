@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="24dp"
+    app:cardBackgroundColor="@color/brand_card_bg"
+    app:cardCornerRadius="22dp"
+    app:cardElevation="10dp"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/buttonCloseInfo"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="start"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/add_card_close_cd"
+            android:padding="12dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_close_24"
+            app:tint="@color/brand_text_primary" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="400dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp"
+            android:scrollbars="none"
+            android:fillViewport="true">
+
+            <TextView
+                android:id="@+id/textProfileInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="5dp"
+                android:textColor="@color/brand_text_primary"
+                android:textIsSelectable="true"
+                android:textSize="16sp" />
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

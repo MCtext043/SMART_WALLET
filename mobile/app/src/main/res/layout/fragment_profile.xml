@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brand_background"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/screen_content_padding_horizontal"
+            android:paddingTop="@dimen/screen_content_padding_top"
+            android:paddingEnd="@dimen/screen_content_padding_horizontal">
+
+            <View
+                android:layout_width="@dimen/profile_info_button_size"
+                android:layout_height="@dimen/profile_info_button_size" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="Профиль"
+                android:textAppearance="@style/SmartWalletScreenTitle" />
+
+            <FrameLayout
+                android:id="@+id/buttonProfileInfo"
+                android:layout_width="@dimen/profile_info_button_size"
+                android:layout_height="@dimen/profile_info_button_size"
+                android:background="@drawable/bg_circle_profile_info"
+                android:clickable="true"
+                android:contentDescription="@string/profile_info_button_cd"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:stateListAnimator="@null">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="!"
+                    android:textColor="@color/brand_text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:paddingStart="@dimen/screen_content_padding_horizontal"
+            android:paddingEnd="@dimen/screen_content_padding_horizontal"
+            android:paddingBottom="8dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/screen_header_margin_bottom"
+                    android:gravity="center_horizontal"
+                    android:text="Загрузка..."
+                    android:textAppearance="@style/SmartWalletScreenSubtitle" />
+
+                <FrameLayout
+                    android:id="@+id/avatarButton"
+                    android:layout_width="@dimen/profile_avatar_size"
+                    android:layout_height="@dimen/profile_avatar_size"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/profile_avatar_top_spacing"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless">
+
+                    <ImageView
+                        android:id="@+id/imageAvatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/profile_avatar_cd"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_person_24" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/textPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_horizontal"
+                    android:text="Загрузка..."
+                    android:textColor="@color/md_theme_onSurfaceVariant"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/textName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_horizontal"
+                    android:text="Загрузка..."
+                    android:textColor="@color/brand_text_primary"
+                    android:textSize="24sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonAiChat"
+                    style="@style/Widget.SmartWallet.Button.FullWidth.White"
+                    android:layout_marginTop="@dimen/profile_actions_top_spacing"
+                    android:layout_marginBottom="@dimen/home_block_spacing"
+                    android:stateListAnimator="@null"
+                    android:text="Чат с AI SmartWallet"
+                    android:textSize="16sp"
+                    app:elevation="@dimen/profile_white_button_elevation"
+                    app:icon="@drawable/ic_ai_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonLogout"
+                    style="@style/Widget.SmartWallet.Button.FullWidth.White"
+                    android:layout_marginBottom="12dp"
+                    android:stateListAnimator="@null"
+                    android:text="Выйти из аккаунта"
+                    android:textSize="16sp"
+                    app:elevation="@dimen/profile_white_button_elevation"
+                    app:icon="@drawable/ic_logout_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/textProfileVersionFooter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="4dp"
+            android:paddingBottom="@dimen/profile_version_footer_padding_bottom"
+            android:text="@string/profile_screen_version"
+            android:textColor="@color/md_theme_onSurfaceVariant"
+            android:textSize="14sp"
+            tools:text="v1.1" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="gone" />
+</FrameLayout>

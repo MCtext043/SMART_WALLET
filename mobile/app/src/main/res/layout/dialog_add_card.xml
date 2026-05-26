@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="30dp"
+    app:cardElevation="12dp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="22dp">
+
+        <!-- Крестик слева, заголовок по центру -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginBottom="18dp">
+
+            <ImageButton
+                android:id="@+id/buttonCancel"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/add_card_close_cd"
+                android:padding="11dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_close_24" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Добавить карту"
+                android:textColor="@color/brand_text_primary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="1dp"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/smartwallet_button_height"
+            android:layout_marginBottom="18dp"
+            app:cardBackgroundColor="@color/add_card_field_fill"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="0dp">
+
+            <EditText
+                android:id="@+id/editBankName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:hint="Название банка"
+                android:importantForAutofill="yes"
+                android:inputType="text"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/add_card_edit_gray"
+                android:textColorHint="@color/add_card_hint_gray"
+                android:textSize="16sp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/smartwallet_button_height"
+            android:layout_marginBottom="18dp"
+            app:cardBackgroundColor="@color/add_card_field_fill"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="0dp">
+
+            <EditText
+                android:id="@+id/editCardName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:hint="Название карты"
+                android:importantForAutofill="yes"
+                android:inputType="text"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/add_card_edit_gray"
+                android:textColorHint="@color/add_card_hint_gray"
+                android:textSize="16sp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/smartwallet_button_height"
+            android:layout_marginBottom="18dp"
+            app:cardBackgroundColor="@color/add_card_field_fill"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="0dp">
+
+            <EditText
+                android:id="@+id/editLast4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:hint="Последние 4 цифры"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="4"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/add_card_edit_gray"
+                android:textColorHint="@color/add_card_hint_gray"
+                android:textSize="16sp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/smartwallet_button_height"
+            android:layout_marginBottom="26dp"
+            app:cardBackgroundColor="@color/add_card_field_fill"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="0dp">
+
+            <EditText
+                android:id="@+id/editLimitMonthly"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:hint="Месячный лимит (₽)"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/add_card_edit_gray"
+                android:textColorHint="@color/add_card_hint_gray"
+                android:textSize="16sp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSave"
+                style="@style/Widget.SmartWallet.Button.FullWidth"
+                android:text="Сохранить"
+                app:cornerRadius="@dimen/smartwallet_button_corner" />
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

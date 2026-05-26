@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Уменьшаем vector в safe zone adaptive icon (~108dp), чтобы маска круга меньше резала логотип. -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/vector"
+    android:insetLeft="26dp"
+    android:insetTop="26dp"
+    android:insetRight="26dp"
+    android:insetBottom="26dp" />

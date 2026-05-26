@@ -1,0 +1,98 @@
+<resources>
+    <string name="app_name">SmartWallet</string>
+    <string name="splash_screen_accessibility">Загрузка SmartWallet</string>
+    <string name="login_tab">Вход</string>
+    <string name="register_tab">Регистрация</string>
+    <string name="auth_remember_me">Запомнить меня</string>
+    <string name="register_welcome">Добро пожаловать!</string>
+    <string name="register_success_need_login">Регистрация успешна. Войдите в систему.</string>
+    <string name="fill_all_fields">Заполните все поля</string>
+    <string name="auth_failed">Ошибка авторизации</string>
+    <string name="welcome_title">Добро пожаловать в SmartWallet!</string>
+
+    <string name="demo_presentation_title">Демо для презентации</string>
+    <string name="demo_presentation_hint">Демо не подключает банки: данные условные. Импорт операций — имитация выписки.</string>
+    <string name="demo_confirm_title">Загрузить демо-данные?</string>
+    <string name="demo_confirm_message">Стереть мои карты, историю операций и рекомендации и подставить демо (3 карты, 12 операций)?</string>
+    <string name="demo_confirm_yes">Стереть и загрузить</string>
+    <string name="demo_success">Демо загружено: карт %1$d, операций %2$d</string>
+    <string name="demo_error_409">У вас уже есть карты. Повторите с параметром reset=true или сначала удалите карты. Детали: %1$s</string>
+    <string name="analytics_trends_intro">Нейросеть анализирует все траты и выдаёт тренды — сравнение категорий и долей за период.</string>
+    <string name="analytics_trends_insight_food">По расчёту: на «еду» вы потратили на %.0f%% %s, чем в предыдущем месяце.</string>
+    <string name="analytics_trends_example">Например: вы потратили на продукты на 10% больше, чем на еду вне дома.</string>
+    <string name="analytics_trends_loading">Запрашиваем актуальный разбор у ассистента…</string>
+
+    <string name="profile_avatar_cd">Аватар, нажмите чтобы сменить</string>
+    <string name="profile_avatar_upload_ok">Аватар обновлён</string>
+    <string name="profile_avatar_no_endpoint">Сервер не принял файл. Нужен POST multipart на auth/profile/avatar (поле file).</string>
+    <string name="add_card_close_cd">Закрыть</string>
+    <string name="api_url_emulator_only">В проекте указан 10.0.2.2 — это адрес «ПК из эмулятора». На обычном телефоне не сработает. В local.properties задайте IP вашего компьютера в Wi‑Fi и пересоберите APK.</string>
+
+    <string name="pay_qr_scan_title">Оплата по QR</string>
+    <string name="pay_qr_capture">Сфотографировать</string>
+    <string name="pay_qr_camera_denied">Нужен доступ к камере для сканирования QR</string>
+    <string name="pay_qr_camera_error">Не удалось запустить камеру</string>
+    <string name="pay_qr_capture_failed">Не удалось снять кадр</string>
+    <string name="pay_qr_not_found">QR-код не найден на снимке</string>
+    <string name="pay_confirm_title">Подтверждение оплаты</string>
+    <string name="pay_confirm_payee_unknown">Получатель не указан в QR</string>
+    <string name="pay_confirm_category_line">Категория: %s</string>
+    <string name="pay_confirm_amount_not_in_qr">Сумма не распознана</string>
+    <string name="pay_confirm_time_template">Время: %s</string>
+    <string name="pay_confirm_cards_ranked_header">Ваши карты (по убыванию кэшбэка на эту покупку)</string>
+    <string name="pay_confirm_card_option_format">%1$s · •••• %2$s · %3$d%% · +%4$.2f ₽</string>
+    <string name="pay_confirm_no_cards_saved">Нет сохранённых карт — добавьте карту в разделе «Карты»</string>
+    <string name="pay_confirm_best_card_block">Наилучшая карта для оплаты</string>
+    <string name="pay_confirm_no_qr">Нет данных QR</string>
+    <string name="pay_confirm_need_login">Войдите в аккаунт, чтобы получить рекомендацию карты</string>
+    <string name="pay_confirm_best_card_error">Не удалось получить рекомендацию. Попробуйте позже.</string>
+    <string name="pay_confirm_button">Подтвердить покупку</string>
+    <string name="pay_confirm_need_card">Нужна хотя бы одна карта и успешная рекомендация для оплаты.</string>
+    <string name="pay_confirm_amount_default_hint">Сумма в QR не распознана — для операции указано 1,00 ₽.</string>
+    <string name="pay_confirm_success">Оплата прошла успешно</string>
+    <string name="pay_confirm_pay_error">Не удалось провести оплату. Попробуйте позже.</string>
+
+    <string name="profile_screen_version">v1.1</string>
+    <string name="profile_info_button_cd">Информация о приложении</string>
+    <string name="profile_info_dialog_full">SmartWallet помогает выбрать карту с лучшим кэшбэком, смотреть историю операций и получать советы от AI‑ассистента. \n\nБыстрые подсказки:\n• На главной доступна оплата по QR и советы.\n• В «Карты» можно добавить карту вручную или через NFC, если устройство поддерживает чтение карты.\n• История и аналитика обновляются по данным с сервера.</string>
+    <string name="home_finance_tip_prompt">Нажмите «Финансовый совет», чтобы получить короткий совет.</string>
+
+    <!-- Короткие советы для блока «нейросеть» на главной -->
+    <string-array name="ai_finance_tips">
+        <item>Совет нейросети: отложите 10%% дохода до зарплаты — так проще не потратить лишнего.</item>
+        <item>Нейросеть: перед крупной покупкой подождите сутки — импульс часто дороже выгоды.</item>
+        <item>Совет: сравнивайте цену в пересчёте на месяц подписки, а не только «за месяц».</item>
+        <item>Нейросеть: держите на карте только то, что готовы потратить на неделю.</item>
+        <item>Совет: включите уведомления о списаниях — так быстрее ловятся лишние траты.</item>
+        <item>Нейросеть: кэшбэк имеет смысл, если не покупаете ради него то, что не нужно.</item>
+        <item>Совет: один «день без трат» в месяц заметно укрепляет бюджет.</item>
+        <item>Нейросеть: автоплатежи пересматривайте раз в квартал — сервисы копятся незаметно.</item>
+        <item>Совет: крупные покупки планируйте списком, мелкие — лимитом на день.</item>
+        <item>Нейросеть: перевод в накопления сразу после дохода снижает соблазн потратить.</item>
+        <item>Совет: проверяйте чек сразу — ошибки кассы откатываются проще в первые часы.</item>
+        <item>Нейросеть: две карты — бытовая и накопления — проще контролировать баланс.</item>
+        <item>Совет: перед оплатой спросите себя: «это нужно или просто скидка?»</item>
+        <item>Нейросеть: лимит на доставку еды часто экономит больше, чем купоны.</item>
+        <item>Совет: фиксируйте долги в заметке с датой — мозг меньше «забывает».</item>
+        <item>Нейросеть: процент по кредитной карте съедает кэшбэк, если не гасить вовремя.</item>
+        <item>Совет: мелкие подписки раз в год отменяйте тем, чем не пользовались месяц.</item>
+        <item>Нейросеть: покупки ночью чаще импульсивны — отложите на утро.</item>
+        <item>Совет: цель с цифрой («накопить X») работает лучше абстрактного «меньше тратить».</item>
+        <item>Нейросеть: сравнивайте карты по тем категориям, где тратите чаще всего.</item>
+        <item>Совет: чаевые и округления в приложениях за год складываются — гляньте итог.</item>
+        <item>Нейросеть: резерв на 1–2 месяца расходов снижает стресс и импульсные займы.</item>
+        <item>Совет: перед поездкой обмен валюты часто выгоднее аэропорта.</item>
+        <item>Нейросеть: «бесплатная» рассрочка всё равно тянет за собой платеж — учитывайте в бюджете.</item>
+        <item>Совет: продлите гарантию только если реально ломали такие вещи раньше.</item>
+        <item>Нейросеть: отдельный счёт для налогов ИП/фриланса спасает от сюрпризов.</item>
+        <item>Совет: скидка %% не экономия, если товар без неё не купили бы.</item>
+        <item>Нейросеть: чек-лист продуктов режет спонтанные покупки в магазине.</item>
+        <item>Совет: платите картой с кэшбэком там, где правила вам понятны и честны.</item>
+        <item>Нейросеть: раз в неделю 5 минут на сводку трат даёт больше контроля, чем жёсткие запреты.</item>
+    </string-array>
+
+    <string name="assistant_back_cd">Назад</string>
+    <string name="assistant_robot_cd">Ассистент</string>
+    <string name="assistant_send_cd">Отправить сообщение</string>
+    <string name="assistant_input_hint">Введите сообщение…</string>
+</resources>

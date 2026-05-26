@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tablet specific strings -->
+    <string name="app_name">SmartWallet Pro</string>
+    <string name="welcome_title">Добро пожаловать в SmartWallet Pro</string>
+    <string name="welcome_subtitle">Ваш персональный финансовый помощник для планшетов</string>
+</resources>

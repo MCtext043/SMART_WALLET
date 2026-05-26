@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brand_background"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/brand_background"
+        android:stateListAnimator="@null"
+        app:elevation="0dp"
+        app:liftOnScroll="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/screen_content_padding_horizontal"
+            android:paddingEnd="@dimen/screen_content_padding_horizontal"
+            android:paddingTop="@dimen/screen_content_padding_top"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Аналитика"
+                android:textAppearance="@style/SmartWalletScreenTitle" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/brand_background"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:overScrollMode="never"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/screen_content_padding_horizontal"
+            android:paddingEnd="@dimen/screen_content_padding_horizontal"
+            android:paddingBottom="@dimen/screen_content_padding_horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:gravity="start"
+                android:text="Ваши траты"
+                android:textColor="@color/brand_text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Диаграмма и категории без карточки; только оверлей загрузки -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/analytics_chart_horizontal_outset"
+                android:layout_marginEnd="@dimen/analytics_chart_horizontal_outset"
+                android:layout_marginBottom="12dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipChildren="false"
+                    android:orientation="vertical">
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pieChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/analytics_pie_chart_height"
+                        android:clipChildren="false" />
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/legendCategories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/analytics_legend_top_spacing"
+                        android:clipChildren="false"
+                        android:paddingStart="@dimen/screen_content_padding_horizontal"
+                        android:paddingTop="@dimen/analytics_legend_padding_top"
+                        android:paddingEnd="@dimen/screen_content_padding_horizontal"
+                        android:paddingBottom="@dimen/analytics_legend_padding_bottom"
+                        android:visibility="gone"
+                        app:alignContent="flex_start"
+                        app:alignItems="flex_start"
+                        app:flexDirection="row"
+                        app:flexWrap="wrap"
+                        app:justifyContent="flex_start" />
+                </LinearLayout>
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    android:visibility="gone"
+                    app:indicatorColor="@color/brand_primary" />
+            </FrameLayout>
+
+            <!-- Плашки по той же горизонтали, что и Flexbox категорий под диаграммой -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/analytics_chart_horizontal_outset"
+                android:layout_marginEnd="@dimen/analytics_chart_horizontal_outset"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/screen_content_padding_horizontal"
+                android:paddingEnd="@dimen/screen_content_padding_horizontal">
+
+            <!-- Кэшбэк -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardAnalyticsCashback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/home_block_spacing"
+                app:cardBackgroundColor="@color/brand_card_bg"
+                app:cardCornerRadius="@dimen/home_category_corner"
+                app:cardElevation="@dimen/home_advice_cards_elevation"
+                app:cardUseCompatPadding="false"
+                app:strokeColor="@android:color/transparent"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="@dimen/home_advice_block_padding_vertical">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/dollar" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:text="Кэшбэк за месяц"
+                        android:textColor="@color/brand_text_primary"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textTotalCashback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="+0 ₽"
+                        android:textColor="@color/brand_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Тренды -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardAnalyticsTrends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/brand_card_bg"
+                app:cardCornerRadius="@dimen/home_category_corner"
+                app:cardElevation="@dimen/home_advice_cards_elevation"
+                app:cardUseCompatPadding="false"
+                app:strokeColor="@android:color/transparent"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:gravity="top"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="@dimen/home_advice_block_padding_vertical">
+
+                    <ImageView
+                        android:layout_width="92dp"
+                        android:layout_height="112dp"
+                        android:layout_gravity="top"
+                        android:layout_marginTop="-28dp"
+                        android:contentDescription="@null"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/mobb" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="1dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Тренды"
+                            android:textColor="@color/brand_text_primary"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textTrends"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:lineSpacingMultiplier="1.25"
+                            android:text="@string/analytics_trends_intro"
+                            android:textColor="@color/brand_text_secondary"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

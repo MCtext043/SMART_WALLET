@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="smartwallet_button_width">340dp</dimen>
+    <dimen name="smartwallet_button_height">65dp</dimen>
+    <dimen name="smartwallet_button_corner">21dp</dimen>
+    <!-- Главный экран: +3dp к радиусам относительно прежних значений в разметке -->
+    <dimen name="home_button_corner">24dp</dimen>
+    <dimen name="home_bank_card_corner">23dp</dimen>
+    <dimen name="home_category_corner">19dp</dimen>
+    <dimen name="home_recommend_corner">15dp</dimen>
+    <!-- Главная: одинаковый шаг между активной картой, советами и кнопками -->
+    <dimen name="home_block_spacing">16dp</dimen>
+    <dimen name="home_block_bet_spacing">-8dp</dimen>
+    <!-- Главная: тень у активной карты / кнопки «Оплатить» -->
+    <dimen name="home_card_glow_elevation">12dp</dimen>
+    <!-- Тень у блоков советов (категория + текст рекомендации) -->
+    <dimen name="home_advice_cards_elevation">6dp</dimen>
+    <!-- Главная: «Рекомендованная категория» и блок совета — чуть выше кнопок (кнопки = smartwallet_button_height 65dp) -->
+    <dimen name="home_advice_block_min_height">76dp</dimen>
+    <dimen name="home_advice_block_padding_vertical">10dp</dimen>
+    <!-- Сдвиг контента вниз на основных экранах (не вход/регистрация) -->
+    <dimen name="screen_content_extra_top">16dp</dimen>
+    <!-- Единые отступы шапки как на экране «Мои карты» -->
+    <dimen name="screen_content_padding_top">48dp</dimen>
+    <!-- Горизонтальная колонка контента: главная (fragment_home), карты (fragment_cards) — как у FullWidth-кнопок -->
+    <dimen name="screen_content_padding_horizontal">32dp</dimen>
+    <!-- Карты: зазор под нижним блоком, чтобы FAB не перекрывал статистику (≈ высота FAB + отступ) -->
+    <dimen name="cards_screen_bottom_above_fab">76dp</dimen>
+    <!-- Карты: насколько «Статистика карт» шире остальной колонки — отрицательный margin Start/End у cardCardsStatistics.
+         Чем больше по модулю (например -24dp, -32dp), тем шире блок. 0dp = как «Выбранная карта».
+         При screen_content_padding_horizontal=32dp значение -32dp выводит карточку почти к краям экрана. -->
+    <dimen name="cards_statistics_horizontal_outset">-10dp</dimen>
+    <!-- История операций: чуть шире список относительно остальных экранов -->
+    <dimen name="history_screen_padding_horizontal">22dp</dimen>
+    <dimen name="screen_header_margin_bottom">12dp</dimen>
+    <!-- Профиль: зазор между email в шапке и аватаром -->
+    <dimen name="profile_avatar_top_spacing">24dp</dimen>
+    <dimen name="profile_avatar_size">120dp</dimen>
+    <!-- Профиль: заметное свечение белых кнопок (не перегружать экран) -->
+    <dimen name="profile_white_button_elevation">10dp</dimen>
+    <!-- Зазор между именем и первой кнопкой (без растягивающегося Spacer) -->
+    <dimen name="profile_actions_top_spacing">18dp</dimen>
+    <dimen name="profile_info_button_size">40dp</dimen>
+    <!-- Версия у нижнего края экрана, чуть выше BottomNavigation -->
+    <dimen name="profile_version_footer_padding_bottom">10dp</dimen>
+    <dimen name="screen_title_subtitle_spacing">2dp</dimen>
+    <!-- Вход / регистрация: чуть шире поля — меньше отступы от края экрана -->
+    <dimen name="auth_form_screen_padding_horizontal">16dp</dimen>
+    <!-- Внутренний отступ у карточки поля (сумма с padding ≈ край рамки поля от экрана) -->
+    <dimen name="auth_form_field_horizontal_inset">4dp</dimen>
+    <!-- Карточка вкладок: выровняна по внешнему краю полей (padding + field inset) -->
+    <dimen name="auth_form_tab_card_margin_horizontal">20dp</dimen>
+    <!-- Чуть пространства над первым полем — чтобы не обрезалось свечение (outline) -->
+    <dimen name="auth_form_first_field_extra_top">8dp</dimen>
+
+    <dimen name="splash_logo_dp">70dp</dimen>
+    <dimen name="splash_logo_inner_dp">62dp</dimen>
+    <dimen name="splash_center_logo_max">240dp</dimen>
+
+    <!-- Аналитика: высота «капсулы» категории = диаметр круга с иконкой -->
+    <dimen name="analytics_category_chip_height">42dp</dimen>
+    <dimen name="analytics_category_chip_corner">21dp</dimen>
+    <!-- Вынос диаграммы на края экрана (компенсирует padding контента) — иначе круг упирается в узкую колонку -->
+    <dimen name="analytics_chart_horizontal_outset">-32dp</dimen>
+    <!-- Диаграмма: высота области (круг ограничен min(ширина, высота); ширину расширяем outset’ом) -->
+    <dimen name="analytics_pie_chart_height">380dp</dimen>
+    <!-- Зазор между диаграммой и рядом категорий -->
+    <dimen name="analytics_legend_top_spacing">-40dp</dimen>
+    <dimen name="analytics_legend_padding_top">0dp</dimen>
+    <!-- Нижний отступ больше — чтобы не резалась тень у капсул -->
+    <dimen name="analytics_legend_padding_bottom">14dp</dimen>
+    <!-- Зазоры между капсулами категорий (ряд / перенос) -->
+    <dimen name="analytics_category_chip_spacing_h">30dp</dimen>
+    <dimen name="analytics_category_chip_spacing_v">18dp</dimen>
+    <!-- Внутренние поля капсулы категории -->
+    <dimen name="analytics_category_chip_inner_padding_start">9dp</dimen>
+    <dimen name="analytics_category_chip_inner_padding_end">14dp</dimen>
+    <dimen name="analytics_category_chip_text_gap_after_icon">10dp</dimen>
+    <dimen name="analytics_category_chip_text_padding_end">14dp</dimen>
+    <!-- Белая «рамка» вокруг цветной капсулы (не растягивает сам виджет карточки) -->
+    <dimen name="analytics_category_chip_white_inset">5dp</dimen>
+    <!-- Чуть больше снизу у белой обводки — место под тень карточки -->
+    <dimen name="analytics_category_chip_white_inset_bottom">10dp</dimen>
+    <dimen name="analytics_category_chip_text_min_width">58dp</dimen>
+</resources>
