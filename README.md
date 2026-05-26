@@ -1,166 +1,78 @@
-# Smart Wallet (Spring Boot)
+# Smart Wallet
 
-REST API **бекенда под мобильное приложение** Smart Wallet: пользователи, карты и правила кэшбэка, транзакции, подбор карты по категории, рекомендации и чат через внешний GigaChat-прокси. Клиент (iOS / Android или кроссплатформа) общается с этим сервисом напрямую по **HTTPS** и **JSON REST**; описание контрактов для разработчиков приложения — **OpenAPI** (`/docs`). Исходная спецификация API — в репозитории [MCtext043/SmartWallet](https://github.com/MCtext043/SmartWallet).
+Монорепозиторий: Android-клиент в каталоге `mobile/` и REST API на Spring Boot в `backend/`. Приложение работает с картами пользователя, транзакциями и кэшбэком, даёт подсказки по выбору карты и включает чат с ассистентом. Ответы ассистента запрашиваются на сервере у внешнего HTTP-сервиса (GigaChat), адрес задаётся в настройках бэкенда.
 
-## Ответ на вопрос «это реально?»
+## Структура проекта
 
+| Каталог / файл | Содержимое |
+|----------------|------------|
+| `mobile/` | Android приложение на Java |
+| `backend/` | Сервис API, Maven |
+| `docker-compose.yml` | PostgreSQL и контейнер API (сборка из `./backend`) |
 
-Да. Это ограниченный REST-сервис (CRUD пользовательских данных, несколько доменных правил, один внешний HTTP-вызов к GigaChat-прокси). Такой функционал **типично и предсказуемо переносится** на Spring Boot без «магических» платформенных ограничений.
+## Клиент (mobile)
 
-Оговорки (честно):
+Стек можно описать как Java 11, Android Gradle Plugin 8.x, Gradle Kotlin DSL и каталог версий (`libs.versions.toml`), Retrofit и OkHttp, Gson с полем `SerializedName` под JSON в формате `snake_case`, Material и классический UI на XML-разметке (Fragments, без Jetpack Compose), ViewPager2, CameraX и ML Kit для сценария с кодом оплаты, Glide, MPAndroidChart.
 
-| Тема | Комментарий |
-|------|--------------|
-| **Перенос пользователей из сторонней БД** | Хэши паролей в форматах других стеков не подставляются «как есть» без отдельного `PasswordEncoder` под тот же алгоритм. |
-| **Побитовое совпадение всех текстов ошибок валидации** | Частично упрощено: при ошибках Bean Validation возвращается одна строка `detail`. |
-| **Внешний GigaChat** | По-прежнему HTTP POST на настраиваемый URL (`assistant.gigachat.url`). В интеграционных тестах клиент замокан. |
+Клиент общается с API по базовому URL из `BuildConfig.API_BASE_URL`. Значение задаётся в `mobile/local.properties` ключом `api.base.url`. Если файл не задан, в сборке подставляется адрес для эмулятора: `http://10.0.2.2:8000/` (тот же порт, что у Spring Boot по умолчанию). На физическом устройстве указывают IP машины с запущенным сервером, например `http://192.168.1.x:8000/`.
 
-## Стек технологий
+Подробнее про экраны и зависимости — в `mobile/README.md`.
 
-| Слой | Технология |
-|------|-------------|
-| Рантайм | Java **21**, Spring Boot **3.4.x** |
-| Web | Spring Web MVC |
-| Безопасность | Spring Security **stateless JWT** (JJWT **0.12**, HS256), BCrypt для пароля |
-| БД | PostgreSQL, Spring Data **JPA** (Hibernate), **Flyway** V1-схема |
-| Контракт API | springdoc-openapi — UI по адресу **`/docs`** (OpenAPI JSON: **`/v3/api-docs`**) |
-| Тесты | JUnit 5, Spring Boot Test, **Testcontainers** (PostgreSQL). Без установленного Docker тест контейнерного класса можно пропустить (`@Testcontainers(disabledWithoutDocker = true)`). |
+Что есть в приложении с точки зрения пользователя: регистрация и вход, список карт и добавление карты, операции и история, подбор карты под категорию покупки, рекомендации и диалог ассистента, аналитика и профиль.
 
-## Архитектура
+## Сервер (backend)
 
-### Контур развёртывания (бек для мобильного клиента)
+Стек: Java 21, Spring Boot 3.4.6, Spring Web MVC, Spring Security без сессии с JWT и BCrypt для паролей, PostgreSQL, Spring Data JPA и Flyway для схемы, springdoc-openapi (интерфейс `/docs`), Maven. Образ приложения описан в `backend/Dockerfile`.
 
-В этом проекте **нет отдельного BFF или веб-фронта** — мобильное приложение ходит **напрямую** в Spring Boot-сервис. Схема соответствует тому, что реально реализовано в коде и в Docker Compose (`api` + PostgreSQL):
+Поток данных: клиент общается с API по HTTPS, после входа добавляет Bearer-токен к запросам. Сервер пишет состояние в PostgreSQL и по необходимости вызывает внешний GigaChat только с машины сервера. Отдельного BFF здесь нет — один Spring Boot-сервис и общая точка входа `/docs`, которой удобно пользоваться и мобильной команде для сверки полей.
+
+### Схема взаимодействия
 
 ```mermaid
 flowchart LR
-  subgraph MOBILE["Мобильное приложение"]
-    APP["Клиент<br/><sub>Android</sub>"]
+  subgraph CLIENT["Клиент"]
+    APP["Android-приложение<br/><sub>папка mobile/</sub>"]
   end
 
-  subgraph SERVER["Этот репозиторий — Backend"]
-    BE["Spring Boot REST API<br/><sub>JWT, JSON, порты см. ниже</sub>"]
+  subgraph API["REST API"]
+    BE["Spring Boot<br/><sub>порт 8000 по умолчанию</sub>"]
   end
 
-  subgraph DATA["Данные"]
-    PG[("PostgreSQL<br/><sub>Flyway, JPA</sub>")]
+  subgraph DATA["Хранилище"]
+    PG[("PostgreSQL")]
   end
 
-  subgraph EXT["Внешний сервис"]
-    GIGA["GigaChat-прокси<br/><sub>HTTP, assistant.gigachat.url</sub>"]
+  subgraph EXT["Интеграция"]
+    GX["HTTP GigaChat<br/><sub>URL в настройках бэкенда</sub>"]
   end
 
-  APP <-->|"HTTPS · REST · JSON<br/>Bearer JWT после /auth/login"| BE
-  BE <-->|"SQL"| PG
-  BE -->|"HTTP POST<br/>ассистент / чат"| GIGA
+  APP <-->|"JSON · Bearer JWT"| BE
+  BE <-->|"JDBC / SQL"| PG
+  BE -->|"чат пользователя"| GX
 ```
 
-**Дополнительно (не отдельный узел на схеме):** встроенная **Swagger / OpenAPI** (`/docs`) нужна прежде всего разработчикам мобильного приложения как живая документация к тем же эндпоинтам, которые дергает клиент из стора.
+После запуска бэкенда к тем же методам удобно смотреть интерактивно: **`http://localhost:8000/docs`** (контракт собирает springdoc-openapi из аннотаций и сигнатур контроллеров).
 
-**Не в этом API (пока):** отправка почты (SMTP), пуши, отдельный Telegram- или веб-фронт — при появлении их можно добавить на схему как новые клиенты или очередь.
+Список маршрутов, переменные окружения и команды сборки подробнее — в **`backend/README.md`**.
 
-### Внутренние слои backend (этот проект)
+## Замечания по согласованию клиента и API
 
-Приложение внутри разбито на классические слои:
+Подходящее описание актуальных путей — открыть запущенный сервер по адресу `/docs`.
 
-```text
-┌──────────────────────────────────────────────┐
-│  Controllers (HTTP, DTO snake_case через     │
-│  Jackson PROPERTY_NAMING Strategy)           │
-└─────────────┬────────────────────────────────┘
-              │ использует Application services
-┌─────────────▼────────────────────────────────┐
-│  Services                                   │
-│  • Auth • Cards • Transactions              │
-│  • Cashback • Recommendations • Assistant    │
-└─────────────┬────────────────────────────────┘
-              │ доменная модель (JPA)
-┌─────────────▼────────────────────────────────┐
-│  Repositories / Entities / PostgreSQL       │
-└──────────────────────────────────────────────┘
+Сервер уже закрывает сценарии регистрации, входа, профиля, списков и создания карт и транзакций, рекомендаций, чата и запроса лучшей карты по категории.
 
-Отдельно:
-• JwtAuthenticationFilter + JwtService
-• GigachatClient (RestTemplate) — прокси к внешнему ассистенту
-```
+В клиентских интерфейсах Retrofit заложены вызовы, для которых в текущей версии Spring Boot нет парных методов: загрузка аватара (`multipart`), демосид `POST …/demo/seed`, пакетный импорт транзакций, частичное обновление кэшбэка карты через `PATCH`. Пока эти методы не реализованы на сервере, соответствующие кнопки или сценарии будут получать ошибки. Тело успешного ответа после создания транзакции на сервере — объект с полями, а клиентский тип указан без разбора тела (`Void`), этого обычно достаточно для успешной записи без отображения ответа. В некоторых DTO транзакции на клиенте ожидаются поля, которых может не быть в упрощённом ответе сервера.
 
-**Почему так:** доменная логика сосредоточена в сервисах, контроллеры только маппинг HTTP ↔ DTO.
+## Запуск
 
-## Полный функционал (соответствие эндпоинтам)
-
-| Метод | Путь | Описание |
-|-------|------|----------|
-| `GET` | `/` | Информация о сервисе (`message`, `version`, `docs`) |
-| `GET` | `/health` | `{"status":"healthy"}` |
-| `POST` | `/auth/register` | Регистрация, уникальные `phone`, `email` |
-| `POST` | `/auth/login` | JWT `access_token`, `token_type: bearer` |
-| `GET` | `/auth/profile` | Профиль (Bearer) |
-| `GET`/`POST` | `/cards`, `/cards/` | Список / создание карты |
-| `GET` | `/cards/{id}` | Одна карта пользователя |
-| `GET`/`POST` | `/transactions`, `/transactions/` | Список / создание транзакции с расчётом `cashback_earned` |
-| `GET` | `/assistant/recommendations` | До **3** рекомендаций; если за последние сутки уже есть сохранённые — они возвращаются из БД |
-| `POST` | `/assistant/chat` | Чат ассистента (контекст карт и последних 5 транзакций → GigaChat-прокси) |
-| `GET` | `/cashback/best-card?category=…` | Лучшая карта по ставке для категории (fallback на `прочее`) |
-
-Подробная интерактивная документация этого сервиса: **`http://localhost:8000/docs`**.
-
-## Запуск локально
-
-Требования: **JDK 21+**, **PostgreSQL**, **Maven** (или свой wrapper). Убедитесь, что БД создана, например `smartwallet`.
-
-1. При необходимости скорректируйте `src/main/resources/application.yml` (`spring.datasource.*`, секрет JWT `jwt.secret`).
-2. Сборка и запуск:
-   ```bash
-   mvn spring-boot:run
-   ```
-3. По умолчанию слушает порт **8000**.
-
-Переменные окружения (альтернатива правке YAML) можно задать через `SPRING_APPLICATION_JSON` или стандартные `SPRING_DATASOURCE_*`, см. документацию Spring Boot.
-
-### Важные параметры `application.yml`
-
-| Ключ | Назначение |
-|------|------------|
-| `spring.datasource.*` | Подключение к PostgreSQL |
-| `jwt.secret` | Подпись JWT (минимально длинный ключ в проде; для HS256 в коде ключ нормализуется через SHA-256-хэш) |
-| `jwt.access-token-expire-minutes` | Время жизни access-токена |
-| `assistant.gigachat.url` | URL метода отправки сообщения (по умолчанию `http://91.146.28.240:8041/api/gigachat/message`; см. Swagger внешнего сервиса: [Swagger UI на 8041](http://91.146.28.240:8041/swagger-ui/index.html#/)) |
-| `assistant.gigachat.*-timeout-ms` | Таймауты HTTP-клиента |
-
-## Docker Compose
-
-Нужны **Docker Desktop** (или эквивалент) и свободный порт **8000** на хосте.
+Сначала база и API из корня репозитория:
 
 ```bash
 docker compose up --build -d
 ```
 
-- API после старта: `http://localhost:8000` (Swagger этого приложения: `/docs`).
-- PostgreSQL живёт только внутри сети compose; том с данными: `smartwallet-pg-data`.
-- При необходимости задайте свой URL вызова GigaChat через переменную окружения (в `docker-compose` уже есть значение по умолчанию):
+Проверка: сервис отвечает на `GET /health`, описание методов доступно по `GET /docs` того же хоста и порта (по умолчанию localhost:8000).
 
-```bash
-set ASSISTANT_GIGACHAT_URL=http://91.146.28.240:8041/api/gigachat/message
-docker compose up -d api
-```
+Для разработки бэкенда без контейнеров перейти в `backend/`, создать или указать локальную PostgreSQL как в `application.yml`, затем выполнить `mvn spring-boot:run`.
 
-Остановка: `docker compose down` (данные тома сохранятся до `docker compose down -v`).
-
-Подсказка под Windows/PowerShell: для `curl.exe` надёжнее передавать JSON-тело из файла (`--data-binary @path\to\body.json`), чтобы не ломать кавычки на кириллице и спецсимволах в `--data`.
-
-
-## Тесты
-
-Интеграционный класс **`BackendHappyPathIT`** поднимает PostgreSQL через **Testcontainers** и прогоняет основной пользовательский сценарий; клиент к GigaChat в тестах **подменяется** моками. Нужен **запущенный Docker**.
-
-```bash
-mvn verify
-```
-
-Дополнительно прогоняются модульные тесты в `CoreBusinessLogicTest` — они не требуют Docker.
-
-Без Docker контейнерный интеграционный тест может быть автоматически пропущен (см. `@Testcontainers`).
-
----
-
-Репозиторий-источник: [https://github.com/MCtext043/SmartWallet](https://github.com/MCtext043/SmartWallet).
+Клиент собирают в Android Studio, открыв каталог `mobile/`, добавив при необходимости `local.properties` с путём к SDK и нужным `api.base.url`.

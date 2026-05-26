@@ -14,14 +14,14 @@ services:
       - smartwallet-pg-data:/var/lib/postgresql/data
 
   api:
-    build: .
+    build: ./backend
     ports:
       - "8000:8000"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/smartwallet
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-      # Зовёт тот же путь, что и старый бэкенд (см. http://91.146.28.240:8041/swagger-ui/index.html#/ )
+      # URL HTTPS/HTTP-сервиса GigaChat; при деплое задайте своё значение или переменную окружения
       ASSISTANT_GIGACHAT_URL: ${ASSISTANT_GIGACHAT_URL:-http://91.146.28.240:8041/api/gigachat/message}
     depends_on:
       db:

@@ -9,9 +9,9 @@ val localPropsFile = rootProject.file("local.properties")
 if (localPropsFile.exists()) {
     localPropsFile.inputStream().use { localProperties.load(it) }
 }
-// api.base.url в local.properties (порт как у uvicorn). По умолчанию ниже — типичный LAN для телефона; для эмулятора в local.properties: http://10.0.2.2:8001/
-// Сервер: 0.0.0.0, брандмауэр, после смены URL — пересборка.
-val apiBaseUrlRaw = localProperties.getProperty("api.base.url") ?: "http://192.168.0.5:8001/"
+// api.base.url в local.properties. Бэкенд Spring Boot слушает порт 8000 (см. backend/application.yml и docker-compose).
+// Эмулятор Android → машина-хост: http://10.0.2.2:8000/  ·  телефон в той же Wi‑Fi с ПК → http://<LAN-IP-ПК>:8000/
+val apiBaseUrlRaw = localProperties.getProperty("api.base.url") ?: "http://10.0.2.2:8000/"
 val apiBaseUrl = if (apiBaseUrlRaw.endsWith("/")) apiBaseUrlRaw else "$apiBaseUrlRaw/"
 val apiBaseUrlForBuildConfig = apiBaseUrl.replace("\\", "\\\\").replace("\"", "\\\"")
 
