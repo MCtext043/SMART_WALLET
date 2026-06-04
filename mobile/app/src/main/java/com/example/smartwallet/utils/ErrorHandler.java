@@ -82,7 +82,8 @@ public class ErrorHandler {
                     return "Сеть запретила HTTP. Обновите приложение (network_security_config) или используйте HTTPS.";
                 }
             }
-            return "Ошибка сети. Проверьте Wi‑Fi и адрес API (IP компьютера, не localhost с телефона).";
+            return "Нет связи с сервером Smart Wallet. Проверьте интернет и что API доступен (сейчас в сборке: "
+                    + com.example.smartwallet.BuildConfig.API_BASE_URL + ").";
         } else if (throwable instanceof SecurityException) {
             return "Ошибка доступа. Проверьте разрешения приложения.";
         } else {

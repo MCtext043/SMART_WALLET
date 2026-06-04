@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 public class HttpClientConfiguration {
 
     @Bean
-    public RestTemplate gigachatRestTemplate(GigachatProperties props) {
+    public RestTemplate ollamaRestTemplate(OllamaProperties props) {
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         requestFactory.setConnectTimeout((int) props.connectTimeoutMs());
         requestFactory.setReadTimeout((int) props.readTimeoutMs());

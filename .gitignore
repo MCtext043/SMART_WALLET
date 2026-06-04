@@ -40,3 +40,4 @@ build/
 
 ### Local ###
 /_ref_python/
+*.apk

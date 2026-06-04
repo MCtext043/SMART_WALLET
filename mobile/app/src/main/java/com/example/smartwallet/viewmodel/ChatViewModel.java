@@ -56,12 +56,10 @@ public class ChatViewModel extends ViewModel {
             return;
         }
         
-        // Add user message
         ChatMessage userMessage = new ChatMessage(messageText, ChatMessage.TYPE_USER);
         messageList.add(userMessage);
         messages.setValue(new ArrayList<>(messageList));
         
-        // Send to API
         sendToAssistant(messageText);
     }
     
@@ -81,12 +79,16 @@ public class ChatViewModel extends ViewModel {
             public void onResponse(Call<ChatResponse> call, Response<ChatResponse> response) {
                 isLoading.setValue(false);
                 if (response.isSuccessful() && response.body() != null) {
-                    // Add assistant response
-                    ChatMessage assistantMessage = new ChatMessage(response.body().reply, ChatMessage.TYPE_ASSISTANT);
-                    messageList.add(assistantMessage);
-                    messages.setValue(new ArrayList<>(messageList));
+                    String reply = response.body().reply;
+                    if (reply != null && !reply.isBlank()) {
+                        ChatMessage assistantMessage = new ChatMessage(reply, ChatMessage.TYPE_ASSISTANT);
+                        messageList.add(assistantMessage);
+                        messages.setValue(new ArrayList<>(messageList));
+                    } else {
+                        error.setValue("Пустой ответ ассистента. Попробуйте ещё раз.");
+                    }
                 } else {
-                    error.setValue("Ошибка получения ответа от ассистента");
+                    error.setValue(ErrorHandler.httpErrorMessage(response));
                 }
             }
 

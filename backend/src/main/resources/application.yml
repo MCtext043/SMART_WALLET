@@ -33,10 +33,12 @@ jwt:
   access-token-expire-minutes: 30
 
 assistant:
-  gigachat:
-    url: http://91.146.28.240:8041/api/gigachat/message
+  ollama:
+    enabled: ${ASSISTANT_OLLAMA_ENABLED:true}
+    base-url: ${ASSISTANT_OLLAMA_BASE_URL:http://localhost:11434}
+    model: ${ASSISTANT_OLLAMA_MODEL:qwen2.5:1.5b}
     connect-timeout-ms: 5000
-    read-timeout-ms: 30000
+    read-timeout-ms: 120000
 
 logging:
   level:

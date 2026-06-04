@@ -2,7 +2,7 @@ package com.smartwallet.integration;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.smartwallet.gateway.GigachatClient;
+import com.smartwallet.gateway.OllamaClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
@@ -59,12 +58,11 @@ class BackendHappyPathIT {
     ObjectMapper objectMapper;
 
     @MockitoBean
-    GigachatClient gigachatClient;
+    OllamaClient ollamaClient;
 
     @Test
     void fullHappyPathThroughApi() throws Exception {
-        when(gigachatClient.postMessage(any()))
-                .thenAnswer(inv -> ResponseEntity.ok("{\"content\":\"Ответ ассистента: тест\\nГотово\"}"));
+        when(ollamaClient.chat(any(), any())).thenReturn("Ответ ассистента: тест\nГотово");
 
         StringBuilder digits = new StringBuilder("+7");
         ThreadLocalRandom r = ThreadLocalRandom.current();

@@ -5,81 +5,55 @@ import com.smartwallet.domain.WalletTransaction;
 import com.smartwallet.domain.WalletUser;
 import com.smartwallet.dto.ChatMessageRequest;
 import com.smartwallet.dto.ChatResponseDto;
-import com.smartwallet.gateway.GigachatClient;
+import com.smartwallet.gateway.OllamaClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class AssistantChatService {
 
-    private final GigachatClient gigachatClient;
+    private final OllamaClient ollamaClient;
 
-    public ChatResponseDto chat(WalletUser currentUser, List<Card> cards, List<WalletTransaction> recentFive, ChatMessageRequest message) {
+    public ChatResponseDto chat(
+            WalletUser currentUser,
+            List<Card> cards,
+            List<WalletTransaction> recentFive,
+            ChatMessageRequest message
+    ) {
         String userContext = buildUserContext(currentUser, cards, recentFive);
 
         try {
             String systemMessage =
                     """
-                            Ты учитель по финансовой грамотности, объясняй четко и понятно.
-                            Ты помогаешь пользователю SmartWallet оптимизировать кэшбэк с карт.
+                            Ты финансовый ассистент приложения Smart Wallet на русском языке.
+                            Помогаешь с кэшбэком, картами, тратами и финансовой грамотностью.
+                            Отвечай кратко (до 5 предложений), по делу, без выдуманных данных.
 
                             Контекст пользователя:
-                            %s
-
-                            Отвечай коротко и по делу. Если пользователь спрашивает про кэшбэк, используй информацию о его картах."""
+                            %s"""
                             .stripIndent()
                             .formatted(userContext);
 
-            Map<String, Object> body = gigachatRequestBody(systemMessage, message.message());
-
-            var responseEntity = gigachatClient.postMessage(body);
-            if (responseEntity.getStatusCode().is2xxSuccessful() && responseEntity.getBody() != null) {
-                return new ChatResponseDto(cleanGigaResponse(responseEntity.getBody()));
+            String reply = ollamaClient.chat(systemMessage, message.message());
+            if (reply != null && !reply.isBlank()) {
+                return new ChatResponseDto(reply);
             }
-            return new ChatResponseDto(
-                    "Извините, произошла ошибка при обращении к ассистенту (код "
-                            + responseEntity.getStatusCode().value()
-                            + "). Попробуйте позже."
-            );
+            log.warn("Ollama returned empty reply");
         } catch (org.springframework.web.client.ResourceAccessException e) {
-            Throwable cause = e.getCause();
-            if (cause instanceof java.net.SocketTimeoutException) {
-                return new ChatResponseDto("Извините, ассистент не отвечает. Попробуйте позже.");
-            }
-            log.debug("Assistant connection failed", e);
-            return new ChatResponseDto(
-                    "Извините, не удается подключиться к ассистенту. Проверьте интернет-соединение."
-            );
+            log.warn("Ollama unreachable: {}", e.getMessage());
         } catch (Exception e) {
-            log.warn("Assistant chat failure", e);
-            return new ChatResponseDto("Произошла ошибка: " + e.getMessage());
+            log.warn("Ollama error", e);
         }
-    }
 
-    static Map<String, Object> gigachatRequestBody(String systemMessage, String userMessage) {
-        Map<String, Object> payload = new LinkedHashMap<>();
-        payload.put("model", "GigaChat:latest");
-        payload.put("stream", false);
-        payload.put("update_interval", 0);
-        payload.put(
-                "messages",
-                List.of(
-                        Map.of("role", "system", "content", systemMessage),
-                        Map.of("role", "user", "content", userMessage)
-                )
+        return new ChatResponseDto(
+                AssistantFallbackResponder.reply(message.message(), cards, recentFive)
         );
-        payload.put("n", 1);
-        payload.put("max_tokens", 256);
-        payload.put("repetition_penalty", 1.0);
-        return payload;
     }
 
     static String buildUserContext(WalletUser currentUser, List<Card> cards, List<WalletTransaction> recentFive) {
@@ -90,8 +64,7 @@ public class AssistantChatService {
         if (cards != null && !cards.isEmpty()) {
             sb.append("Карты пользователя:\n");
             for (Card card : cards) {
-                Map<String, Integer> cashbackRules =
-                        card.getCashbackRules() == null ? Map.of() : card.getCashbackRules();
+                var cashbackRules = card.getCashbackRules() == null ? java.util.Map.<String, Integer>of() : card.getCashbackRules();
                 String rulesStr =
                         cashbackRules.entrySet().stream()
                                 .map(e -> "%s: %s%%".formatted(e.getKey(), e.getValue()))
@@ -128,35 +101,11 @@ public class AssistantChatService {
         return sb.toString();
     }
 
-    /** Удобочитаемый вывод сумм в контексте (избегаем научной нотации). */
     public static String stripTrailingZeros(Double v) {
         if (v == null) return "0";
         if (v == Math.rint(v)) {
             return String.valueOf(v.longValue());
         }
         return String.format(Locale.US, "%s", v);
-    }
-
-    public static String cleanGigaResponse(String responseText) {
-        String text;
-        try {
-            com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-            com.fasterxml.jackson.databind.JsonNode gigaData = mapper.readTree(responseText);
-            if (gigaData.isObject() && gigaData.hasNonNull("content")) {
-                text = gigaData.get("content").asText();
-            } else {
-                text = responseText;
-            }
-        } catch (Exception e) {
-            text = responseText;
-        }
-
-        text = text.strip();
-        text = text.replace("\\n", "\n");
-        text = text.replace("\\\"", "\"");
-        text = text.replace("\\/", "/");
-        text = text.replace("\\\\", "\\");
-        text = text.replace("\\t", "\t");
-        return text;
     }
 }

@@ -12,6 +12,14 @@ services:
       retries: 10
     volumes:
       - smartwallet-pg-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama-data:/root/.ollama
+    restart: unless-stopped
+    # Доступ только из docker-сети (api → ollama:11434). Наружу не публикуем.
 
   api:
     build: ./backend
@@ -20,12 +28,18 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/smartwallet
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      # URL HTTPS/HTTP-сервиса GigaChat; при деплое задайте своё значение или переменную окружения
-      ASSISTANT_GIGACHAT_URL: ${ASSISTANT_GIGACHAT_URL:-http://91.146.28.240:8041/api/gigachat/message}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      JWT_SECRET: ${JWT_SECRET:-change-me}
+      ASSISTANT_OLLAMA_ENABLED: "true"
+      ASSISTANT_OLLAMA_BASE_URL: http://ollama:11434
+      ASSISTANT_OLLAMA_MODEL: ${ASSISTANT_OLLAMA_MODEL:-qwen2.5:1.5b}
     depends_on:
       db:
         condition: service_healthy
+      ollama:
+        condition: service_started
+    restart: unless-stopped
 
 volumes:
   smartwallet-pg-data:
+  ollama-data:

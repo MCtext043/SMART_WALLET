@@ -6,9 +6,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
 @Validated
-@ConfigurationProperties(prefix = "assistant.gigachat")
-public record GigachatProperties(
-        @NotBlank String url,
+@ConfigurationProperties(prefix = "assistant.ollama")
+public record OllamaProperties(
+        boolean enabled,
+        @NotBlank String baseUrl,
+        @NotBlank String model,
         @Min(100) long connectTimeoutMs,
-        @Min(100) long readTimeoutMs
+        @Min(1000) long readTimeoutMs
 ) {}
